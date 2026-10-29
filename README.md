@@ -1,111 +1,117 @@
-# 🔐 Network Port Scanner
+# Advanced Network Port Scanner
 
-A simple **TCP Network Port Scanner** developed using **C++**.
-The project scans a specified host within a given port range and identifies which ports are open or closed.
+## About the Project
+The **Advanced Network Port Scanner** is a C++-based cybersecurity tool that identifies open TCP ports on a target IP address or hostname. It uses the Windows Sockets API (Winsock) to test connections and displays useful information about detected ports.
 
-> ⚠️ **Disclaimer:** Use this tool only on systems, devices, or networks that you own or have explicit permission to scan.
+## Features
+- **IP and Hostname Support:** Accepts an IP address or domain name.
+- **Custom Port Range:** Scan a specific range of TCP ports.
+- **Service Identification:** Displays common service names such as HTTP, HTTPS, SSH, FTP, and MySQL based on port numbers.
+- **Non-Blocking Connections:** Uses non-blocking sockets and `select()` with a connection timeout.
+- **Scan Summary:** Displays total ports scanned, open ports, other ports not detected as open, and scan duration.
+- **Input Validation:** Checks the entered port range and handles invalid input.
+- **Error Handling:** Handles Winsock initialization and hostname resolution errors.
 
-## 📌 Features
+## Technologies Used
+- **Programming Language:** C++
+- **Networking API:** Windows Sockets API (Winsock)
+- **Libraries:** `iostream`, `winsock2.h`, `ws2tcpip.h`, `windows.h`, `string`, `chrono`, and `iomanip`
+- **Compiler:** MinGW-w64 G++
 
-* Scan a specified IP address or hostname
-* Specify starting and ending port numbers
-* Detect open and closed TCP ports
-* Display common services associated with ports
-* Count the total number of open ports
-* Simple command-line interface
-* Suitable for learning basic network security and socket programming
+## Requirements
+- Windows operating system
+- Visual Studio Code or another C++ IDE
+- MinGW-w64 G++ compiler
+- Winsock library (`ws2_32`)
 
-## 🛠️ Technologies Used
+## How to Compile and Run
 
-* **C++**
-* TCP/IP
-* Socket Programming
-* Windows Winsock API
-* Networking & Cybersecurity Concepts
+**Step 1: Save the source code**
 
-## ⚙️ How It Works
+Save the program as `port_scanner.cpp`.
 
-1. The user enters the target IP address or hostname.
-2. The user provides a port range.
-3. The program attempts to establish a TCP connection with each port.
-4. If a connection is successful, the port is considered **OPEN**.
-5. If the connection fails, the port is considered **CLOSED**.
-6. The program displays the scan results.
+**Step 2: Open the terminal**
 
-## 💻 Example
+Navigate to the directory containing your source file.
+
+**Step 3: Compile the program**
+
+```bash
+g++ port_scanner.cpp -o port_scanner.exe -lws2_32
+```
+
+**Step 4: Run the program**
+
+```bash
+./port_scanner.exe
+```
+
+## Example Output
 
 ```text
 ========================================
-        NETWORK PORT SCANNER
+       ADVANCED NETWORK PORT SCANNER
 ========================================
 
-Enter IP Address: 127.0.0.1
-Enter Starting Port: 20
-Enter Ending Port: 100
+Enter IP address or hostname: 127.0.0.1
+Enter starting port (1-65535): 75
+Enter ending port (1-65535): 90
 
-Scanning...
-
-Port 21  : OPEN   (FTP)
-Port 22  : OPEN   (SSH)
-Port 23  : CLOSED
-Port 25  : CLOSED
-Port 53  : OPEN   (DNS)
-Port 80  : OPEN   (HTTP)
-
+PORT        SERVICE           STATUS
 ----------------------------------------
-Scan Completed!
-Open Ports Found: 3
-----------------------------------------
+80          HTTP              OPEN
+
+========================================
+             SCAN SUMMARY
+========================================
+Target IP       : 127.0.0.1
+Ports scanned   : 16
+Open ports      : 1
+Closed/filtered : 15
+Time taken      : 0.05 seconds
+Scan completed!
 ```
 
-## 📚 Common Ports
+*Note: This is sample output. Actual results depend on the target system and network conditions.*
 
-| Port  | Service | Purpose             |
-| ----- | ------- | ------------------- |
-| 20/21 | FTP     | File Transfer       |
-| 22    | SSH     | Secure Remote Login |
-| 23    | Telnet  | Remote Login        |
-| 25    | SMTP    | Email               |
-| 53    | DNS     | Domain Name System  |
-| 80    | HTTP    | Web Traffic         |
-| 443   | HTTPS   | Secure Web Traffic  |
+## How It Works
+1. Initializes Winsock for network communication.
+2. Accepts a target IP address or hostname.
+3. Resolves the hostname into an IPv4 address.
+4. Validates the specified port range.
+5. Attempts TCP connections to each port using non-blocking sockets.
+6. Identifies ports that accept connections and displays their commonly associated service names.
+7. Calculates the scan duration and displays a summary.
 
-## 🚀 How to Run
+## Learning Outcomes
+- Understanding TCP/IP networking fundamentals.
+- Learning how TCP ports and services work.
+- Implementing socket programming in C++.
+- Using non-blocking sockets and connection timeouts.
+- Understanding basic network reconnaissance techniques.
+- Practicing input validation and error handling.
 
-### Using Dev-C++
+## Limitations
+- Supports TCP scanning only; UDP scanning is not implemented.
+- Service names are inferred from port numbers and are not verified through service detection.
+- Ports that fail to respond within the timeout may be closed, filtered, or unreachable.
+- Scanning a large port range can take longer depending on network conditions.
 
-1. Open **Dev-C++**.
-2. Create a new C++ source file.
-3. Add the project source code.
-4. Make sure the **Winsock library** is linked.
-5. Compile and run the program.
-6. For testing, use:
+## Ethical Use
+This tool is intended for educational purposes and authorized security testing only. Scan your own devices or systems for which you have explicit permission. Unauthorized scanning may violate applicable policies or laws.
 
-```text
-127.0.0.1
-```
+## Future Improvements
+- Export scan results to a text or CSV report.
+- Add a scan progress indicator.
+- Implement configurable connection timeouts.
+- Add verified service detection.
+- Support optional concurrent scanning for improved performance.
 
-## 🎯 Learning Objectives
-
-* Understand TCP ports and network services
-* Learn basic socket programming in C++
-* Understand how port scanning works
-* Identify commonly used network services
-* Gain practical knowledge of network security
-
-## 🔮 Future Improvements
-
-* Multithreaded scanning
-* Service/version detection
-* Scan multiple hosts
-* Export results to a text or CSV file
-* Add a graphical user interface
-* Add timeout configuration
-* Improve scanning speed
-
-## 👩‍💻 Author
-
+## Author
 **Sanjana Mallick**
 
-B.Tech CSIT — Cybersecurity
+B.Tech CSIT (Cybersecurity)
+
+## License
+This project is available for educational and learning purposes.
 
